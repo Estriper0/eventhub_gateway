@@ -1,0 +1,8 @@
+port: 8081
+timeout: 30
+database:
+  dbhost: postgres
+  dbport: 5432
+  dbuser: postgres
+  dbpassword: test_12345
+  dbname: api_test

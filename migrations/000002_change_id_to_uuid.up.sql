@@ -1,0 +1,15 @@
+BEGIN;
+
+ALTER TABLE event
+DROP CONSTRAINT event_pkey;
+
+ALTER TABLE event
+ALTER COLUMN id DROP DEFAULT;
+
+ALTER TABLE event
+ALTER COLUMN id TYPE UUID USING (gen_random_uuid());
+
+ALTER TABLE event
+ADD CONSTRAINT event_pkey PRIMARY KEY (id);
+
+COMMIT;
