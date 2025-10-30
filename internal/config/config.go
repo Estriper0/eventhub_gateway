@@ -3,17 +3,17 @@ package config
 import (
 	"errors"
 	"os"
-	"path/filepath"
-	"runtime"
+	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 )
 
 type Config struct {
-	Env     string   `mapstructure:"env"`
-	Port    string   `mapstructure:"port"`
-	Timeout int      `mapstructure:"timeout"`
-	DB      Database `mapstructure:"database"`
+	Env     string        `mapstructure:"env"`
+	Port    string        `mapstructure:"port"`
+	Timeout time.Duration `mapstructure:"timeout"`
+	DB      Database      `mapstructure:"database"`
 }
 
 type Database struct {
@@ -26,28 +26,24 @@ type Database struct {
 }
 
 func New() *Config {
-	_, file, _, _ := runtime.Caller(0)
+	_ = godotenv.Load(".env")
 
-	path := filepath.Join(filepath.Dir(filepath.Dir(filepath.Dir(file))), "configs")
-
-	env := os.Getenv("ENV")
+	env := os.Getenv("APP_ENV")
 	if env == "" {
-		env = "dev"
+		env = "local"
 	}
 
 	viper.SetConfigName(env)
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
 	viper.AddConfigPath("./configs")
-	viper.AddConfigPath(path)
+	viper.AddConfigPath("../configs")
 
-	viper.AutomaticEnv()
+	viper.SetDefault("env", env)
+	viper.SetDefault("database.dbport", 5432)
+	viper.SetDefault("database.dbhost", "localhost")
 
 	BindEnv()
-
-	viper.SetDefault("port", 8080)
-	viper.SetDefault("timeout", 30)
-	viper.SetDefault("database.sslmode", "disable")
+	viper.AutomaticEnv()
 
 	err := viper.ReadInConfig()
 	if err != nil {
@@ -58,7 +54,6 @@ func New() *Config {
 	if err = viper.Unmarshal(&config); err != nil {
 		panic(err)
 	}
-	config.Env = env
 
 	if err := Validate(&config); err != nil {
 		panic(err)
@@ -70,10 +65,9 @@ func New() *Config {
 func BindEnv() {
 	viper.BindEnv("database.dbhost", "DB_HOST")
 	viper.BindEnv("database.dbport", "DB_PORT")
+	viper.BindEnv("database.dbname", "DB_NAME")
 	viper.BindEnv("database.dbuser", "DB_USER")
 	viper.BindEnv("database.dbpassword", "DB_PASSWORD")
-	viper.BindEnv("database.dbname", "DB_NAME")
-	viper.BindEnv("database.sslmode", "DB_SSLMODE")
 }
 
 func Validate(config *Config) error {

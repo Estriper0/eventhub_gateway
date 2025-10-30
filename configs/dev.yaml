@@ -1,8 +1,0 @@
-port: 8080
-timeout: 30
-database:
-  dbhost: postgres
-  dbport: 5432
-  dbuser: postgres
-  dbpassword: dev_12345
-  dbname: api_dev

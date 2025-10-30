@@ -1,8 +1,4 @@
-port: 8081
-timeout: 30
+port: 8080
+timeout: 30s
 database:
-  dbhost: postgres
-  dbport: 5432
-  dbuser: postgres
-  dbpassword: test_12345
-  dbname: api_test
+  sslmode: disable

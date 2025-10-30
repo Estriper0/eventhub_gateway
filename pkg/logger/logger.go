@@ -10,7 +10,7 @@ import (
 
 func GetLogger(env string) *slog.Logger {
 	switch env {
-	case "dev":
+	case "local":
 		return slog.New(
 			tint.NewHandler(
 				os.Stdout,

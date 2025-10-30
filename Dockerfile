@@ -16,7 +16,7 @@ FROM alpine:latest AS migrations
 
 WORKDIR /app
 
-COPY --from=builder /app/configs/dev.yaml /app/configs/prod.yaml /app/configs/test.yaml ./configs/
+COPY --from=builder /app/configs/local.yaml /app/configs/prod.yaml ./configs/
 
 COPY --from=builder /app/migrations ./migrations/
 
@@ -28,6 +28,6 @@ WORKDIR /app
 
 COPY --from=builder /app/main ./
 
-COPY --from=builder /app/configs/dev.yaml /app/configs/prod.yaml /app/configs/test.yaml ./configs/
+COPY --from=builder /app/configs/local.yaml /app/configs/prod.yaml ./configs/
 
 EXPOSE 8080

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
-	"time"
 
 	"github.com/Estriper0/EventHub/internal/config"
 	"github.com/Estriper0/EventHub/internal/models"
@@ -31,7 +30,7 @@ func NewEvents(logger *slog.Logger, config *config.Config, service service.IEven
 }
 
 func (e *Event) GetAll(c *gin.Context) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(e.config.Timeout))
+	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
 	events, err := e.service.GetAll(ctx)
@@ -99,7 +98,7 @@ func (e *Event) GetById(c *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(e.config.Timeout))
+	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
 	event, err := e.service.GetById(ctx, uuid)
@@ -151,7 +150,7 @@ func (e *Event) GetById(c *gin.Context) {
 }
 
 func (e *Event) Create(c *gin.Context) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(e.config.Timeout))
+	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
 	var req models.EventCreateRequest
@@ -232,7 +231,7 @@ func (e *Event) DeleteById(c *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(e.config.Timeout))
+	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
 	err = e.service.DeleteById(ctx, uuid)
@@ -294,7 +293,7 @@ func (e *Event) Update(c *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(e.config.Timeout))
+	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
 	err := e.service.Update(ctx, &req)
