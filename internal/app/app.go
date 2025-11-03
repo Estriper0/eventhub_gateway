@@ -1,15 +1,10 @@
 package app
 
 import (
-	"fmt"
 	"log/slog"
 
 	"github.com/Estriper0/EventHub/internal/config"
-	"github.com/Estriper0/EventHub/internal/handlers"
-	"github.com/Estriper0/EventHub/internal/repositories/database/event_repository"
 	"github.com/Estriper0/EventHub/internal/server"
-	"github.com/Estriper0/EventHub/internal/service/event_service"
-	"github.com/Estriper0/EventHub/pkg/db"
 )
 
 type App struct {
@@ -19,14 +14,7 @@ type App struct {
 }
 
 func New(logger *slog.Logger, config *config.Config) *App {
-	db := db.GetDB(&config.DB)
-
-	eventRepo := event_repository.New(db)
-	eventService := event_service.New(eventRepo, logger)
-	eventHandlers := handlers.NewEvents(logger, config, eventService)
-
-	server := server.New(logger, config, eventHandlers)
-	server.RegisterRoutes()
+	server := server.New(logger, config)
 
 	return &App{
 		logger: logger,
@@ -36,9 +24,11 @@ func New(logger *slog.Logger, config *config.Config) *App {
 }
 
 func (a *App) Run() {
+	a.logger.Info("Start application")
 	a.server.Run()
+}
 
-	if err := a.server.Shutdown(); err != nil {
-		a.logger.Error(fmt.Sprintf("Failed to shutdown server: %v", err))
-	}
+func (a *App) Stop() {
+	a.server.Stop()
+	a.logger.Info("Stop application")
 }

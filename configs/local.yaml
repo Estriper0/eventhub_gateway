@@ -1,4 +1,3 @@
 port: 8080
 timeout: 30s
-database:
-  sslmode: disable
+app_id: 1

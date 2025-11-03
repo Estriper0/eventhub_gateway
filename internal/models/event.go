@@ -3,8 +3,6 @@ package models
 import (
 	"errors"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 type EventStatus string
@@ -44,17 +42,18 @@ func (r *EventCreateRequest) Validate() error {
 }
 
 type EventResponse struct {
-	Id           uuid.UUID   `json:"id"`
-	Title        string      `json:"title"`
-	About        string      `json:"description"`
-	StartDate    time.Time   `json:"start_date"`
-	Location     string      `json:"location"`
-	Status       EventStatus `json:"status"`
-	MaxAttendees int         `json:"max_attendees"`
+	Id           int       `json:"id"`
+	Title        string    `json:"title"`
+	About        string    `json:"description"`
+	StartDate    time.Time `json:"start_date"`
+	Location     string    `json:"location"`
+	Status       string    `json:"status"`
+	MaxAttendees int       `json:"max_attendees"`
+	Creator      string    `json:"creator"`
 }
 
 type EventUpdateRequest struct {
-	Id           *uuid.UUID   `json:"id" binding:"required"`
+	Id           *int         `json:"id" binding:"required"`
 	Title        *string      `json:"title"`
 	About        *string      `json:"description"`
 	StartDate    *time.Time   `json:"start_date"`
