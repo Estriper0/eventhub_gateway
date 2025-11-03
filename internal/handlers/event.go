@@ -303,7 +303,7 @@ func (e *Event) Create(c *gin.Context) {
 	}
 	req.Creator = c.GetString("user_id")
 
-	id, err := e.eventClient.Create(ctx, &req)
+	resp, err := e.eventClient.Create(ctx, &req)
 	if err != nil {
 		if ctx.Err() == context.DeadlineExceeded {
 			c.JSON(
@@ -341,7 +341,7 @@ func (e *Event) Create(c *gin.Context) {
 		http.StatusCreated,
 		gin.H{
 			"code":    http.StatusCreated,
-			"message": fmt.Sprintf("Event with ID=%s was created", id.String()),
+			"message": fmt.Sprintf("Event with ID=%d was created", resp.Id),
 		},
 	)
 }
