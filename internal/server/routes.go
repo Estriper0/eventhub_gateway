@@ -2,25 +2,23 @@ package server
 
 import (
 	"log/slog"
-	"time"
 
 	"github.com/Estriper0/EventHub/internal/config"
 	"github.com/Estriper0/EventHub/internal/handlers"
 	"github.com/Estriper0/EventHub/internal/middleware"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/time/rate"
 )
 
 func SetupRoutes(r *gin.Engine, eventHandlers *handlers.Event, authHandlers *handlers.Auth, logger *slog.Logger, config *config.Config) {
 	r.Use(cors.Default())
 	r.Use(middleware.RecoveryMiddleware(logger))
-	r.Use(middleware.RateLimiterMiddleware(rate.Every(time.Minute), 100))
+	r.Use(middleware.RateLimiterMiddleware(config))
 	r.Use(middleware.UUIDMiddleware())
 	r.Use(middleware.LoggerMiddleware(logger))
 
 	events := r.Group("events")
-	events.Use(middleware.JWTAuthMiddleware(config.JWTSecret))
+	events.Use(middleware.JWTAuthMiddleware(config.AccessTokenSecret))
 	events.GET("/", eventHandlers.GetAll)
 	events.GET("/status/:status", eventHandlers.GetAllByStatus)
 	events.GET("/creator/:creator", eventHandlers.GetAllByCreator)
@@ -33,4 +31,6 @@ func SetupRoutes(r *gin.Engine, eventHandlers *handlers.Event, authHandlers *han
 	auth.POST("/register", authHandlers.Register)
 	auth.POST("/login", authHandlers.Login)
 	auth.POST("/admin", authHandlers.IsAdmin)
+	auth.POST("/refresh", authHandlers.Refresh)
+	auth.POST("/logout", authHandlers.Logout)
 }
