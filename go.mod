@@ -3,7 +3,7 @@ module github.com/Estriper0/EventHub
 go 1.25.1
 
 require (
-	github.com/Estriper0/protobuf v0.0.5
+	github.com/Estriper0/protobuf v0.0.9
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.11.0
 	github.com/golang-jwt/jwt/v5 v5.3.0

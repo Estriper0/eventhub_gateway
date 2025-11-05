@@ -5,7 +5,7 @@ x-base: &base
 services:
   api:
     <<: *base
-    container_name: events_api
+    container_name: api_gateway
     build: 
       context: .
       dockerfile: Dockerfile
@@ -15,35 +15,3 @@ services:
       migrations:
         condition: service_completed_successfully
     command: ["./main"]
-  
-  migrations:
-    <<: *base
-    container_name: events_db_migrations
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: migrations
-    restart: "no"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    command: ["./migrate"]
-
-  postgres:
-    container_name: events_db
-    image: postgres:18.0-alpine3.22
-    restart: unless-stopped
-    environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    
-volumes:
-  db_data:

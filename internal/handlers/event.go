@@ -373,7 +373,7 @@ func (e *Event) DeleteById(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
-	if !e.UserVerification(c, ctx, id) {
+	if !e.UserVerification(ctx, c, id) {
 		return
 	}
 
@@ -436,7 +436,7 @@ func (e *Event) Update(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), e.config.Timeout)
 	defer cancel()
 
-	if !e.UserVerification(c, ctx, int(req.Id)) {
+	if !e.UserVerification(ctx, c, int(req.Id)) {
 		return
 	}
 
@@ -491,7 +491,7 @@ func (e *Event) Update(c *gin.Context) {
 	)
 }
 
-func (e *Event) UserVerification(c *gin.Context, ctx context.Context, id int) bool {
+func (e *Event) UserVerification(ctx context.Context, c *gin.Context, id int) bool {
 	req := &pb.GetByIdRequest{Id: int64(id)}
 	resp, err := e.eventClient.GetById(ctx, req)
 	if err != nil {
