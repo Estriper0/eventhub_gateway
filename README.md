@@ -2,8 +2,8 @@
 
 **EventHub** — это **API Gateway**, построенный на **Gin** и **gRPC**, обеспечивающий безопасный и масштабируемый доступ к микросервисам:
 
-- `event-service` — управление событиями
-- `auth-service` — аутентификация и авторизация
+- [`event-service`](https://github.com/Estriper0/EventService) — управление событиями
+- [`auth-service`](https://github.com/Estriper0/AuthService) — аутентификация и авторизация
 
 ---
 
