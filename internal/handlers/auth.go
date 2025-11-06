@@ -54,6 +54,7 @@ func (a *Auth) Register(c *gin.Context) {
 		return
 	}
 
+	a.logger.Info("data", slog.Any("data", req.Email), slog.Any("data", req.Password))
 	resp, err := a.authClient.Register(ctx, &req)
 	if err != nil {
 		if ctx.Err() == context.DeadlineExceeded {
@@ -72,11 +73,20 @@ func (a *Auth) Register(c *gin.Context) {
 		switch code {
 		case codes.AlreadyExists:
 			c.JSON(
+				http.StatusConflict,
+				gin.H{
+					"code":    http.StatusConflict,
+					"user_id": nil,
+					"message": "User exists",
+				},
+			)
+		case codes.InvalidArgument:
+			c.JSON(
 				http.StatusBadRequest,
 				gin.H{
 					"code":    http.StatusBadRequest,
 					"user_id": nil,
-					"message": "User exists",
+					"message": err.Error(),
 				},
 			)
 		case codes.Internal:
@@ -257,7 +267,7 @@ func (a *Auth) Refresh(c *gin.Context) {
 		)
 		return
 	}
-	
+
 	resp, err := a.authClient.Refresh(ctx, &req)
 	if err != nil {
 		if ctx.Err() == context.DeadlineExceeded {
