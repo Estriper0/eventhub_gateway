@@ -23,7 +23,6 @@ type Event struct {
 }
 
 func NewEvent(logger *slog.Logger, config *config.Config) *Event {
-	// TODO Исправить
 	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", config.Event.Host, config.Event.Port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		panic(err)

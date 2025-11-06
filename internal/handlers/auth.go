@@ -22,7 +22,6 @@ type Auth struct {
 }
 
 func NewAuth(logger *slog.Logger, config *config.Config) *Auth {
-	// TODO Исправить
 	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", config.Auth.Host, config.Auth.Port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		panic(err)
