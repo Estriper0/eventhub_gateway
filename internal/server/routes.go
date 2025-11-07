@@ -29,7 +29,7 @@ func SetupRoutes(r *gin.Engine, eventHandlers *handlers.Event, authHandlers *han
 	events.PUT("/", eventHandlers.Update)
 	events.GET("/me", eventHandlers.GetAllByUser)
 	events.POST("/:id/register", eventHandlers.Register)
-	events.POST("/:id/cancell", eventHandlers.CancellRegister)
+	events.DELETE("/:id/register", eventHandlers.CancellRegister)
 
 	auth := r.Group("auth")
 	auth.POST("/register", authHandlers.Register)
