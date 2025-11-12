@@ -39,7 +39,7 @@ func New() *Config {
 
 	viper.AddConfigPath("./configs")
 	viper.AddConfigPath("../configs")
-	viper.SetConfigName(env)
+	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 
 	BindEnv()

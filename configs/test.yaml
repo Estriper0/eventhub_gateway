@@ -1,3 +1,0 @@
-port: 8080
-timeout: 10m
-requests_per_minute: 100
