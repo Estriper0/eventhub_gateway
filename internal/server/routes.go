@@ -3,9 +3,9 @@ package server
 import (
 	"log/slog"
 
-	"github.com/Estriper0/EventHub/internal/config"
-	"github.com/Estriper0/EventHub/internal/handlers"
-	"github.com/Estriper0/EventHub/internal/middleware"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/handlers"
+	"github.com/Estriper0/eventhub_gateway/internal/middleware"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )

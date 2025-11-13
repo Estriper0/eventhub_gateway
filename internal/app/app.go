@@ -3,8 +3,8 @@ package app
 import (
 	"log/slog"
 
-	"github.com/Estriper0/EventHub/internal/config"
-	"github.com/Estriper0/EventHub/internal/server"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/server"
 )
 
 type App struct {

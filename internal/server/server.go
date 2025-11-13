@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Estriper0/EventHub/internal/config"
-	"github.com/Estriper0/EventHub/internal/handlers"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/handlers"
 	"github.com/gin-gonic/gin"
 )
 

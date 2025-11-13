@@ -1,4 +1,4 @@
-module github.com/Estriper0/EventHub
+module github.com/Estriper0/eventhub_gateway
 
 go 1.25.1
 

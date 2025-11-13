@@ -5,9 +5,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Estriper0/EventHub/internal/app"
-	"github.com/Estriper0/EventHub/internal/config"
-	"github.com/Estriper0/EventHub/internal/logger"
+	"github.com/Estriper0/eventhub_gateway/internal/app"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/logger"
 )
 
 func main() {

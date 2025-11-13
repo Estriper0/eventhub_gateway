@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Estriper0/EventHub/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
 	pb "github.com/Estriper0/protobuf/gen/event"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"

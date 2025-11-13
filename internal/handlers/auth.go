@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/Estriper0/EventHub/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
 	pb "github.com/Estriper0/protobuf/gen/auth"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"

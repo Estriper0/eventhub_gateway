@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Estriper0/EventHub/internal/config"
+	"github.com/Estriper0/eventhub_gateway/internal/config"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/time/rate"
 )
