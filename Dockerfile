@@ -16,6 +16,6 @@ WORKDIR /app
 
 COPY --from=builder /app/main ./
 
-COPY --from=builder /app/configs/local.yaml /app/configs/prod.yaml ./configs/
+COPY --from=builder /app/configs/config.yaml ./configs/
 
 EXPOSE 8080
