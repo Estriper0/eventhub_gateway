@@ -53,7 +53,6 @@ func (a *Auth) Register(c *gin.Context) {
 		return
 	}
 
-	a.logger.Info("data", slog.Any("data", req.Email), slog.Any("data", req.Password))
 	resp, err := a.authClient.Register(ctx, &req)
 	if err != nil {
 		if ctx.Err() == context.DeadlineExceeded {
