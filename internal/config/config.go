@@ -9,14 +9,13 @@ import (
 )
 
 type Config struct {
-	Env                string        `mapstructure:"env"`
-	Port               int           `mapstructure:"port"`
-	RequestPerMinute   int           `mapstructure:"requests_per_minute"`
-	AccessTokenSecret  string        `mapstructure:"access_token_secret"`
-	RefreshTokenSecret string        `mapstructure:"refresh_token_secret"`
-	Timeout            time.Duration `mapstructure:"timeout"`
-	Event              Event         `mapstructure:"event"`
-	Auth               Auth          `mapstructure:"auth"`
+	Env               string        `mapstructure:"env"`
+	Port              int           `mapstructure:"port"`
+	RequestPerMinute  int           `mapstructure:"requests_per_minute"`
+	AccessTokenSecret string        `mapstructure:"access_token_secret"`
+	Timeout           time.Duration `mapstructure:"timeout"`
+	Event             Event         `mapstructure:"event"`
+	Auth              Auth          `mapstructure:"auth"`
 }
 
 type Event struct {
@@ -67,5 +66,4 @@ func BindEnv() {
 	viper.BindEnv("auth.host", "AUTH_HOST")
 
 	viper.BindEnv("access_token_secret", "ACCESS_TOKEN_SECRET")
-	viper.BindEnv("refresh_token_secret", "REFRESH_TOKEN_SECRET")
 }
